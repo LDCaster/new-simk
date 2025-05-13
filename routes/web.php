@@ -6,6 +6,7 @@ use App\Http\Controllers\CutiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\KontrakKerjaController;
+use App\Http\Controllers\LaporanStatistikController;
 use App\Http\Controllers\PelatihanController;
 use App\Http\Controllers\ResignController;
 use App\Http\Controllers\TrainPlanController;
@@ -54,3 +55,5 @@ Route::post('training-plans/store', [TrainPlanController::class, 'store'])->name
 Route::get('/training-plans/{id}/edit', [TrainPlanController::class, 'edit'])->name('training-plans.edit');
 Route::put('/training-plans/{id}', [TrainPlanController::class, 'update'])->name('training-plans.update');
 Route::delete('/training-plans/{id}', [TrainPlanController::class, 'destroy'])->name('training-plans.destroy');
+
+Route::get('laporan-statisik', [LaporanStatistikController::class, 'index'])->name('laporan-statistik.index');

@@ -152,6 +152,10 @@
   ============================================ -->
     <script src="{{ asset('assets/js/scrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
     <script src="{{ asset('assets/js/scrollbar/mCustomScrollbar-active.js') }}"></script>
+    <!-- Charts JS
+  ============================================ -->
+    <script src="{{ asset('assets/js/charts/Chart.js') }}"></script>
+    <script src="{{ asset('assets/js/charts/rounded-chart.js') }}"></script>
     <!-- metisMenu JS
   ============================================ -->
     <script src="{{ asset('assets/js/metisMenu/metisMenu.min.js') }}"></script>

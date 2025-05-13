@@ -42,48 +42,70 @@
                                                 <td>{{ $c->alasan }}</td>
                                                 <td>{{ $c->status_pengajuan }}</td>
                                                 <td>
-                                                    <form action="{{ route('cuti.updateStatus', $c->id) }}" method="POST"
-                                                        style="display: inline;">
-                                                        @csrf
-                                                        <select name="status_pengajuan" onchange="this.form.submit()"
-                                                            class="form-control 
-                                                    @if ($c->status_pengajuan == 'DIAJUKAN') bg-light 
-                                                    @elseif($c->status_pengajuan == 'DISETUJUI_PENGAWAS') bg-success 
-                                                    @elseif($c->status_pengajuan == 'DISETUJUI_HRD') bg-primary 
-                                                    @elseif($c->status_pengajuan == 'DISETUJUI_PJO') bg-warning 
-                                                    @elseif($c->status_pengajuan == 'DITOLAK') bg-danger @endif">
-                                                            <option value="DIAJUKAN"
-                                                                {{ $c->status_pengajuan == 'DIAJUKAN' ? 'selected' : '' }}>
-                                                                Diajukan</option>
-                                                            <option value="DISETUJUI_PENGAWAS"
-                                                                {{ $c->status_pengajuan == 'DISETUJUI_PENGAWAS' ? 'selected' : '' }}>
-                                                                Disetujui Pengawas</option>
-                                                            <option value="DISETUJUI_HRD"
-                                                                {{ $c->status_pengajuan == 'DISETUJUI_HRD' ? 'selected' : '' }}>
-                                                                Disetujui HRD</option>
-                                                            <option value="DISETUJUI_PJO"
-                                                                {{ $c->status_pengajuan == 'DISETUJUI_PJO' ? 'selected' : '' }}>
-                                                                Disetujui PJO</option>
-                                                            <option value="DITOLAK"
-                                                                {{ $c->status_pengajuan == 'DITOLAK' ? 'selected' : '' }}>
-                                                                Ditolak</option>
-                                                        </select>
-                                                    </form>
+                                                    @if (auth()->user()->id === $c->karyawan->user_id && $c->status_pengajuan === 'DIAJUKAN')
+                                                        <!-- Dropdown Status hanya untuk karyawan pemilik jika masih DIAJUKAN -->
+                                                        <form action="{{ route('cuti.updateStatus', $c->id) }}"
+                                                            method="POST" style="display: inline;">
+                                                            @csrf
+                                                            <select name="status_pengajuan" onchange="this.form.submit()"
+                                                                class="form-control 
+                @if ($c->status_pengajuan == 'DIAJUKAN') bg-light 
+                @elseif($c->status_pengajuan == 'DISETUJUI_PENGAWAS') bg-success 
+                @elseif($c->status_pengajuan == 'DISETUJUI_HRD') bg-primary 
+                @elseif($c->status_pengajuan == 'DISETUJUI_PJO') bg-warning 
+                @elseif($c->status_pengajuan == 'DITOLAK') bg-danger @endif">
+                                                                <option value="DIAJUKAN"
+                                                                    {{ $c->status_pengajuan == 'DIAJUKAN' ? 'selected' : '' }}>
+                                                                    Diajukan</option>
+                                                            </select>
+                                                        </form>
+                                                    @elseif (in_array(auth()->user()->role, ['superadmin', 'hrd']))
+                                                        <!-- Admin atau HRD bisa ubah status -->
+                                                        <form action="{{ route('cuti.updateStatus', $c->id) }}"
+                                                            method="POST" style="display: inline;">
+                                                            @csrf
+                                                            <select name="status_pengajuan" onchange="this.form.submit()"
+                                                                class="form-control 
+                @if ($c->status_pengajuan == 'DIAJUKAN') bg-light 
+                @elseif($c->status_pengajuan == 'DISETUJUI_PENGAWAS') bg-success 
+                @elseif($c->status_pengajuan == 'DISETUJUI_HRD') bg-primary 
+                @elseif($c->status_pengajuan == 'DISETUJUI_PJO') bg-warning 
+                @elseif($c->status_pengajuan == 'DITOLAK') bg-danger @endif">
+                                                                <option value="DIAJUKAN"
+                                                                    {{ $c->status_pengajuan == 'DIAJUKAN' ? 'selected' : '' }}>
+                                                                    Diajukan</option>
+                                                                <option value="DISETUJUI_PENGAWAS"
+                                                                    {{ $c->status_pengajuan == 'DISETUJUI_PENGAWAS' ? 'selected' : '' }}>
+                                                                    Disetujui Pengawas</option>
+                                                                <option value="DISETUJUI_HRD"
+                                                                    {{ $c->status_pengajuan == 'DISETUJUI_HRD' ? 'selected' : '' }}>
+                                                                    Disetujui HRD</option>
+                                                                <option value="DISETUJUI_PJO"
+                                                                    {{ $c->status_pengajuan == 'DISETUJUI_PJO' ? 'selected' : '' }}>
+                                                                    Disetujui PJO</option>
+                                                                <option value="DITOLAK"
+                                                                    {{ $c->status_pengajuan == 'DITOLAK' ? 'selected' : '' }}>
+                                                                    Ditolak</option>
+                                                            </select>
+                                                        </form>
+                                                    @endif
 
-                                                    <!-- Tombol Hapus untuk Superadmin, HRD, atau Karyawan jika belum disetujui pengawas -->
+                                                    <!-- Tombol Hapus -->
                                                     @if (auth()->user()->role == 'superadmin' ||
                                                             auth()->user()->role == 'hrd' ||
-                                                            ($c->status_pengajuan == 'DIAJUKAN' && auth()->user()->role == 'karyawan'))
+                                                            (auth()->user()->id === $c->karyawan->user_id && $c->status_pengajuan === 'DIAJUKAN'))
                                                         <form action="{{ route('cuti.destroy', $c->id) }}" method="POST"
                                                             style="display: inline;"
                                                             onsubmit="return confirm('Yakin ingin menghapus pengajuan cuti?')">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-sm"> <i
-                                                                    class="fa fa-trash"></i></button>
+                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
                                                         </form>
                                                     @endif
                                                 </td>
+
                                             </tr>
                                         @endforeach
                                     </tbody>

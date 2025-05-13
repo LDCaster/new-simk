@@ -50,7 +50,28 @@
                             <p>Belum ada data absensi.</p>
                         @endif
 
-                        <a href="{{ route('cuti.create') }}" class="btn btn-primary">Ajukan Cuti</a>
+                        <h4>Pengajuan Cuti</h4>
+                        @if ($cuti)
+                            <p>Tanggal Cuti: {{ \Carbon\Carbon::parse($cuti->tanggal_cuti)->format('d-m-Y') }}</p>
+                            <p>Alasan: {{ $cuti->alasan }}</p>
+                            <p>Status:
+                                @if ($cuti->status_pengajuan === 'diterima')
+                                    <span class="badge badge-success">Diterima</span>
+                                @elseif ($cuti->status_pengajuan === 'ditolak')
+                                    <span class="badge badge-danger">Ditolak</span>
+                                @else
+                                    <span class="badge badge-warning">Menunggu</span>
+                                @endif
+                            </p>
+                        @else
+                            <p>Belum ada pengajuan cuti.</p>
+                        @endif
+
+
+                        @if (!$cuti || $cuti->status_pengajuan != 'DIAJUKAN')
+                            <a href="{{ route('cuti.create') }}" class="btn btn-primary">Ajukan Cuti</a>
+                        @endif
+
 
                         {{-- @if (strtolower($karyawan->bagian) === 'driver')
             <hr>

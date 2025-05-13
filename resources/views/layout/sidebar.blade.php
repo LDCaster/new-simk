@@ -61,6 +61,13 @@
                         </ul>
                     </li>
 
+                    {{-- Laporan & Statistik: Semua Role --}}
+                    <li>
+                        <a href="{{ route('laporan-statistik.index') }}" aria-expanded="false">
+                            <span class="educate-icon educate-charts icon-wrap"></span>
+                            <span class="mini-click-non">Laporan & Statistik</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
