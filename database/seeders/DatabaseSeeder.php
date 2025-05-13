@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ResignasiSeeder::class);
         $this->call(LogResignasiSeeder::class);
         $this->call(PelatihanSeeder::class);
+        $this->call(AbsensiSeeder::class);
     }
 }

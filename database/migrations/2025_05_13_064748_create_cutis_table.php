@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('absensis', function (Blueprint $table) {
+        Schema::create('cutis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('karyawan_id')->constrained('karyawan')->onDelete('cascade');
-            $table->date('tanggal');
-            $table->enum('status_kehadiran', ['HADIR', 'IZIN', 'SAKIT', 'ALPA']);
-            $table->string('keterangan')->nullable(); // Wajib jika IZIN/SAKIT
+            $table->date('tanggal_cuti');
+            $table->string('alasan')->nullable();
+            $table->enum('status_pengajuan', ['DIAJUKAN', 'DISETUJUI_PENGAWAS', 'DISETUJUI_HRD', 'DISETUJUI_PJO', 'DITOLAK'])->default('DIAJUKAN');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('absensis');
+        Schema::dropIfExists('cutis');
     }
 };

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KaryawanController;
@@ -35,3 +36,5 @@ Route::get('/data-pelatihan', [PelatihanController::class, 'index'])->name('data
 Route::post('/data-pelatihan', [PelatihanController::class, 'store'])->name('data-pelatihan.store');
 Route::get('/pelatihan/history/{karyawan_id}', [PelatihanController::class, 'getHistoryPelatihan'])->name('pelatihan.history');
 Route::delete('/data-pelatihan/{id}', [PelatihanController::class, 'destroy'])->name('data-pelatihan.destroy');
+
+Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');

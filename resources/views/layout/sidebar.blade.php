@@ -33,7 +33,7 @@
                                 class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span>
                             <span class="mini-click-non">Absensi & Cuti</span></a>
                         <ul class="submenu-angle" aria-expanded="false">
-                            <li><a title="All Professors" href="all-professors.html"><span
+                            <li><a title="All Professors" href="{{ route('absensi.index') }}"><span
                                         class="mini-sub-pro">Absensi</span></a></li>
                             <li><a title="Add Professor" href="add-professor.html"><span class="mini-sub-pro">Cuti
                                     </span></a></li>
