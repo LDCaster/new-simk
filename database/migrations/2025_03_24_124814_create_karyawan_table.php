@@ -17,12 +17,22 @@ return new class extends Migration
             $table->string('nik', 20)->nullable();
             $table->string('nip', 20)->nullable();
             $table->string('nama', 100)->nullable();
-            $table->text('alamat_rumah')->nullable();
+            $table->string('sbu', 100)->nullable(); // SBU
+            $table->string('bagian', 100)->nullable(); // Bagian
+            $table->enum('status_karyawan', ['aktif', 'nonaktif'])->nullable(); // Status Karyawan
+            $table->date('mcu_terakhir')->nullable(); // MCU Terakhir
+            $table->text('catatan_mcu')->nullable(); // Catatan dokter
+            $table->date('catatan_penting_tanggal')->nullable(); // Tanggal catatan penting
+            $table->string('catatan_penting_kasus', 100)->nullable(); // Kasus catatan penting
+            $table->text('catatan_penting_keterangan')->nullable(); // Keterangan catatan penting
+            $table->string('emergency_call_nama', 100)->nullable(); // Nama emergency call
+            $table->string('emergency_call_no_telpon', 15)->nullable(); // No. Telepon emergency call
+            $table->string('alamat_rumah')->nullable();
             $table->string('no_telepon', 15)->nullable();
             $table->string('tempat_lahir', 50)->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
-            $table->string('pendidikan', 50)->nullable()->nullable();
+            $table->string('pendidikan', 50)->nullable();
             $table->enum('status_perkawinan', ['Belum Menikah', 'Menikah'])->nullable();
             $table->timestamps();
         });

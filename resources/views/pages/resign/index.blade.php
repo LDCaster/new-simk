@@ -45,7 +45,7 @@
                                                     @foreach ($log_resignasi as $index => $log)
                                                         <tr>
                                                             <td>{{ $index + 1 }}</td>
-                                                            <td>{{ $log->karyawan->nama }}</td>
+                                                            <td>{{ $log->id_karyawan }}</td>
                                                             <td>{{ $log->tanggal_keluar }}</td>
                                                             <td>{{ $log->keterangan_keluar }}</td>
                                                             <td>{{ $log->aksi }}</td>

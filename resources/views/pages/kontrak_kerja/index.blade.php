@@ -32,7 +32,7 @@
                                                         <th>No</th>
                                                         <th>Nama</th>
                                                         <th>Jenis Kontrak</th>
-                                                        <th> Status</th>
+                                                        <th>Status</th>
                                                         <th>Tanggal Awal</th>
                                                         <th>Tanggal Akhir</th>
                                                         <th>Aksi</th>
@@ -114,7 +114,7 @@
                                                         data-toggle="modal" data-target="#updateKontrakModal">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-sm btn-danger delete-kontrak"
+                                                    {{-- <a href="#" class="btn btn-sm btn-danger delete-kontrak"
                                                         data-id="{{ $k->id }}" data-nama="{{ $k->karyawan->nama }}"
                                                         data-jenis="{{ $k->jenis_kontrak }}"
                                                         data-status="{{ $k->status_kontrak_lanjutan }}"
@@ -123,7 +123,7 @@
                                                         data-id="{{ $k->id }}"
                                                         data-url="{{ route('kontrak-kerja.destroy', $k->id) }}">
                                                         <i class="fa fa-trash"></i>
-                                                    </a>
+                                                    </a> --}}
 
                                                 </td>
                                             </tr>

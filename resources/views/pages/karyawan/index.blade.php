@@ -10,8 +10,11 @@
                         <div class="sparkline13-hd">
                             <div class="main-sparkline13-hd">
                                 <h1>Data <span class="table-project-n">Karyawan</span> </h1>
-                                <button type="button" class="btn btn-custon-rounded-four btn-primary"><i class="fa fa-plus"
-                                        aria-hidden="true"></i> Tambah</button>
+                                <a href="{{ route('karyawan.create') }}">
+                                    <button type="button" class="btn btn-custon-rounded-four btn-primary">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Tambah
+                                    </button>
+                                </a>
                             </div>
                         </div>
                         <div class="sparkline13-graph">
@@ -40,7 +43,7 @@
                                             <th data-field="ttl" data-editable="false">Tempat / Tanggal Lahir</th>
                                             <th data-field="jenis_kelamin" data-editable="false">Jenis Kelamin</th>
                                             <th data-field="pendidikan" data-editable="false">Pendidikan</th>
-                                            <th data-field="status_kawin" data-editable="false">Status Kawin</th>
+                                            <th data-field="status_kawin" data-editable="false">Status Karyawan</th>
                                             <th data-field="action">Action</th>
                                         </tr>
                                     </thead>
@@ -57,12 +60,22 @@
                                                 <td>{{ $k->tempat_lahir }} / {{ $k->tanggal_lahir }}</td>
                                                 <td>{{ $k->jenis_kelamin }}</td>
                                                 <td>{{ $k->pendidikan }}</td>
-                                                <td>{{ $k->status_perkawinan }}</td>
+                                                <td>{{ ucfirst($k->status_akhir) }}</td>
                                                 <td class="datatable-ct">
-                                                    <a href="#" class="btn btn-sm btn-warning"><i
-                                                            class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-sm btn-danger"><i
-                                                            class="fa fa-trash"></i></a>
+                                                    <a href="{{ route('karyawan.edit', $k->id) }}"
+                                                        class="btn btn-sm btn-warning">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+
+                                                    <form action="{{ route('karyawan.destroy', $k->id) }}" method="POST"
+                                                        style="display: inline-block;"
+                                                        onsubmit="return confirm('Apakah kamu yakin ingin menghapus data ini?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -76,4 +89,14 @@
         </div>
     </div>
     <!-- Static Table End -->
+
+    @if (session('success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Lobibox.notify('success', {
+                    msg: "{{ session('success') }}"
+                });
+            });
+        </script>
+    @endif
 @endsection
