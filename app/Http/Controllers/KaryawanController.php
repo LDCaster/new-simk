@@ -72,6 +72,20 @@ class KaryawanController extends Controller
             'jenis_kelamin' => 'nullable|in:L,P',
             'pendidikan' => 'nullable|string|max:50',
             'status_perkawinan' => 'nullable|in:Belum Menikah,Menikah',
+
+            // Tambahan data baru
+            'dept' => 'nullable|string|max:100',
+            'location' => 'nullable|string|max:100',
+            'tanggal_masuk' => 'nullable|date',
+            'no_npwp' => 'nullable|string|max:30',
+            'no_bpjs_kesehatan' => 'nullable|string|max:30',
+            'no_bpjs_ketenagakerjaan' => 'nullable|string|max:30',
+            'bank_account' => 'nullable|string|max:100',
+            'no_bank' => 'nullable|string|max:30',
+            'no_sim' => 'nullable|string|max:30',
+            'expired_sim' => 'nullable|date',
+            'no_simper' => 'nullable|string|max:30',
+            'expired_simper' => 'nullable|date',
         ]);
 
         DB::beginTransaction();
@@ -109,6 +123,20 @@ class KaryawanController extends Controller
                 'jenis_kelamin' => $validated['jenis_kelamin'] ?? null,
                 'pendidikan' => $validated['pendidikan'] ?? null,
                 'status_perkawinan' => $validated['status_perkawinan'] ?? null,
+
+                // Tambahan
+                'departemen' => $validated['departemen'] ?? null,
+                'lokasi' => $validated['lokasi'] ?? null,
+                'tanggal_masuk' => $validated['tanggal_masuk'] ?? null,
+                'no_npwp' => $validated['no_npwp'] ?? null,
+                'no_bpjs_kesehatan' => $validated['no_bpjs_kesehatan'] ?? null,
+                'no_bpjs_ketenagakerjaan' => $validated['no_bpjs_ketenagakerjaan'] ?? null,
+                'bank_account' => $validated['bank_account'] ?? null,
+                'no_bank' => $validated['no_bank'] ?? null,
+                'no_sim' => $validated['no_sim'] ?? null,
+                'expired_sim' => $validated['expired_sim'] ?? null,
+                'no_simper' => $validated['no_simper'] ?? null,
+                'expired_simper' => $validated['expired_simper'] ?? null,
             ]);
 
             // Simpan data ke tabel kontrak_kerja
@@ -128,6 +156,7 @@ class KaryawanController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
     public function edit($id)
     {
         $karyawan = KaryawanModel::findOrFail($id);
@@ -162,6 +191,20 @@ class KaryawanController extends Controller
             'jenis_kelamin' => 'required|in:L,P',
             'pendidikan' => 'nullable|string|max:255',
             'status_perkawinan' => 'required|in:Belum Menikah,Menikah',
+
+            // Tambahan data baru
+            'dept' => 'nullable|string|max:100',
+            'location' => 'nullable|string|max:100',
+            'tanggal_masuk' => 'nullable|date',
+            'no_npwp' => 'nullable|string|max:30',
+            'no_bpjs_kesehatan' => 'nullable|string|max:30',
+            'no_bpjs_ketenagakerjaan' => 'nullable|string|max:30',
+            'bank_account' => 'nullable|string|max:100',
+            'no_bank' => 'nullable|string|max:30',
+            'no_sim' => 'nullable|string|max:30',
+            'expired_sim' => 'nullable|date',
+            'no_simper' => 'nullable|string|max:30',
+            'expired_simper' => 'nullable|date',
         ]);
 
         $karyawan = KaryawanModel::findOrFail($id);
@@ -187,6 +230,20 @@ class KaryawanController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'pendidikan' => $request->pendidikan,
             'status_perkawinan' => $request->status_perkawinan,
+
+            // Tambahan data baru
+            'dept' => $request->dept,
+            'location' => $request->location,
+            'tanggal_masuk' => $request->tanggal_masuk,
+            'no_npwp' => $request->no_npwp,
+            'no_bpjs_kesehatan' => $request->no_bpjs_kesehatan,
+            'no_bpjs_ketenagakerjaan' => $request->no_bpjs_ketenagakerjaan,
+            'bank_account' => $request->bank_account,
+            'no_bank' => $request->no_bank,
+            'no_sim' => $request->no_sim,
+            'expired_sim' => $request->expired_sim,
+            'no_simper' => $request->no_simper,
+            'expired_simper' => $request->expired_simper,
         ]);
 
         return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil diperbarui.');

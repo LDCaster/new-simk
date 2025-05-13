@@ -56,6 +56,24 @@
                                 </div>
                             </div>
 
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="dept">Departemen</label>
+                                    <input type="text" name="dept" class="form-control"
+                                        value="{{ old('dept', $karyawan->dept) }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="location">Lokasi</label>
+                                    <input type="text" name="location" class="form-control"
+                                        value="{{ old('location', $karyawan->location) }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="tanggal_masuk">Tanggal Masuk</label>
+                                    <input type="date" name="tanggal_masuk" class="form-control"
+                                        value="{{ old('tanggal_masuk', $karyawan->tanggal_masuk) }}">
+                                </div>
+                            </div>
+
                             <!-- === Catatan MCU & Catatan Penting === -->
                             <h5 class="text-primary mt-4">Catatan MCU & Penting</h5>
                             <hr>
@@ -158,6 +176,60 @@
                                             {{ old('status_perkawinan', $karyawan->status_perkawinan) == 'Menikah' ? 'selected' : '' }}>
                                             Menikah</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="npwp">No. NPWP</label>
+                                    <input type="text" name="npwp" class="form-control"
+                                        value="{{ old('npwp', $karyawan->npwp) }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="bpjs_kesehatan">No. BPJS Kesehatan</label>
+                                    <input type="text" name="bpjs_kesehatan" class="form-control"
+                                        value="{{ old('bpjs_kesehatan', $karyawan->bpjs_kesehatan) }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="bpjs_ketenagakerjaan">No. BPJS Ketenagakerjaan</label>
+                                    <input type="text" name="bpjs_ketenagakerjaan" class="form-control"
+                                        value="{{ old('bpjs_ketenagakerjaan', $karyawan->bpjs_ketenagakerjaan) }}">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="bank_account">Bank Account</label>
+                                    <input type="text" name="bank_account" class="form-control"
+                                        value="{{ old('bank_account', $karyawan->bank_account) }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="no_bank">No. Bank</label>
+                                    <input type="text" name="no_bank" class="form-control"
+                                        value="{{ old('no_bank', $karyawan->no_bank) }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="no_sim">No. SIM</label>
+                                    <input type="text" name="no_sim" class="form-control"
+                                        value="{{ old('no_sim', $karyawan->no_sim) }}">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="expired_sim">Expired SIM</label>
+                                    <input type="date" name="expired_sim" class="form-control"
+                                        value="{{ old('expired_sim', $karyawan->expired_sim) }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="no_simper">No. Permit/SIMPER</label>
+                                    <input type="text" name="no_simper" class="form-control"
+                                        value="{{ old('no_simper', $karyawan->no_simper) }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="expired_simper">Expired Permit/SIMPER</label>
+                                    <input type="date" name="expired_simper" class="form-control"
+                                        value="{{ old('expired_simper', $karyawan->expired_simper) }}">
                                 </div>
                             </div>
 

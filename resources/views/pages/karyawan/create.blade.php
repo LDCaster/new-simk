@@ -75,6 +75,18 @@
                                 </div>
                             </div>
 
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="dept">Departemen</label>
+                                    <input type="text" name="dept" class="form-control" value="{{ old('dept') }}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="location">Lokasi</label>
+                                    <input type="text" name="location" class="form-control"
+                                        value="{{ old('location') }}">
+                                </div>
+                            </div>
+
                             <!-- === Catatan MCU & Catatan Penting === -->
                             <h5 class="text-primary mt-4">Catatan MCU & Penting</h5>
                             <hr>
@@ -169,6 +181,71 @@
                                         <option value="Belum Menikah">Belum Menikah</option>
                                         <option value="Menikah">Menikah</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="tanggal_masuk">Tanggal Masuk</label>
+                                    <input type="date" name="tanggal_masuk" class="form-control"
+                                        value="{{ old('tanggal_masuk') }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="no_npwp">No. NPWP</label>
+                                    <input type="text" name="no_npwp" class="form-control"
+                                        value="{{ old('no_npwp') }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="bank_account">Nama Bank</label>
+                                    <input type="text" name="bank_account" class="form-control"
+                                        value="{{ old('bank_account') }}">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="no_bank">No Rekening Bank</label>
+                                    <input type="text" name="no_bank" class="form-control"
+                                        value="{{ old('no_bank') }}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="no_bpjs_kesehatan">No. BPJS Kesehatan</label>
+                                    <input type="text" name="no_bpjs_kesehatan" class="form-control"
+                                        value="{{ old('no_bpjs_kesehatan') }}">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="no_bpjs_ketenagakerjaan">No. BPJS Ketenagakerjaan</label>
+                                    <input type="text" name="no_bpjs_ketenagakerjaan" class="form-control"
+                                        value="{{ old('no_bpjs_ketenagakerjaan') }}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="no_sim">No SIM</label>
+                                    <input type="text" name="no_sim" class="form-control"
+                                        value="{{ old('no_sim') }}">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="expired_sim">Expired SIM</label>
+                                    <input type="date" name="expired_sim" class="form-control"
+                                        value="{{ old('expired_sim') }}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="no_simper">No Permit / Simper</label>
+                                    <input type="text" name="no_simper" class="form-control"
+                                        value="{{ old('no_simper') }}">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="expired_simper">Expired Permit / Simper</label>
+                                    <input type="date" name="expired_simper" class="form-control"
+                                        value="{{ old('expired_simper') }}">
                                 </div>
                             </div>
 
