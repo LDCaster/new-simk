@@ -16,7 +16,7 @@ class AbsensiModel extends Model
     protected $fillable = [
         'karyawan_id',
         'tanggal',
-        'kehadiran', // hadir, izin, alpa, sakit
+        'status_kehadiran', // hadir, izin, alpa, sakit
         'keterangan', // jika izin/sakit
     ];
 
