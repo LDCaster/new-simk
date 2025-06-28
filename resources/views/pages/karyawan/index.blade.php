@@ -62,6 +62,11 @@
                                                 <td>{{ $k->pendidikan }}</td>
                                                 <td>{{ ucfirst($k->status_akhir) }}</td>
                                                 <td class="datatable-ct">
+                                                    <button class="btn btn-sm btn-primary"
+                                                        onclick="showDetail({{ $k->id }})" data-toggle="modal"
+                                                        data-target="#modalDetailKaryawan">
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
                                                     <a href="{{ route('karyawan.edit', $k->id) }}"
                                                         class="btn btn-sm btn-warning">
                                                         <i class="fa fa-edit"></i>
@@ -81,6 +86,27 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <!-- Modal Detail Karyawan -->
+                                <div id="modalDetailKaryawan" class="modal fade" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Detail Karyawan</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>Nama:</strong> <span id="detail-nama"></span></p>
+                                                <p><strong>Alamat:</strong> <span id="detail-alamat"></span></p>
+                                                <p><strong>MCU Terakhir:</strong> <span id="detail-mcu"></span></p>
+                                                <p><strong>BPJS Kesehatan:</strong> <span id="detail-bpjs-kesehatan"></span>
+                                                </p>
+                                                <p><strong>BPJS Ketenagakerjaan:</strong> <span
+                                                        id="detail-bpjs-ketenagakerjaan"></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -99,4 +125,28 @@
             });
         </script>
     @endif
+
+    <script>
+        function showDetail(id) {
+            console.log('ID:', id);
+            $.ajax({
+                url: '/karyawan/' + id,
+                type: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#detail-nama').text(data.nama ?? '-');
+                    $('#detail-alamat').text(data.alamat_rumah ?? '-');
+                    $('#detail-mcu').text(data.mcu_terakhir ?? '-');
+                    $('#detail-bpjs-kesehatan').text(data.bpjs_kesehatan ?? '-');
+                    $('#detail-bpjs-ketenagakerjaan').text(data.bpjs_ketenagakerjaan ?? '-');
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            });
+        }
+    </script>
 @endsection

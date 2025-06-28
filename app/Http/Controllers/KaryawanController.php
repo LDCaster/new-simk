@@ -33,6 +33,20 @@ class KaryawanController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $karyawan = KaryawanModel::findOrFail($id);
+
+        return response()->json([
+            'nama' => $karyawan->nama,
+            'alamat_rumah' => $karyawan->alamat_rumah,
+            'mcu_terakhir' => $karyawan->mcu_terakhir,
+            'bpjs_kesehatan' => $karyawan->no_bpjs_kesehatan,
+            'bpjs_ketenagakerjaan' => $karyawan->no_bpjs_ketenagakerjaan,
+        ]);
+    }
+
+
     public function create()
     {
         return view('pages.karyawan.create', [
