@@ -50,8 +50,12 @@ Route::prefix('data-resign')->name('data-resign.')->group(function () {
 Route::prefix('data-pelatihan')->name('data-pelatihan.')->group(function () {
     Route::get('/', [PelatihanController::class, 'index'])->name('index');
     Route::post('/', [PelatihanController::class, 'store'])->name('store');
+    // Hapus 1 pelatihan
     Route::delete('/{id}', [PelatihanController::class, 'destroy'])->name('destroy');
+    // Hapus semua pelatihan 1 karyawan
+    Route::delete('/karyawan/{id}', [PelatihanController::class, 'destroyByKaryawan'])->name('destroyByKaryawan');
 });
+// Get history
 Route::get('/pelatihan/history/{karyawan_id}', [PelatihanController::class, 'getHistoryPelatihan'])->name('pelatihan.history');
 
 // Absensi

@@ -35,8 +35,10 @@
                                                         <th>Pelatihan</th>
                                                         <th>Tanggal</th>
                                                         <th>File Pelatihan</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
+
                                                 <tbody>
 
                                                 </tbody>
@@ -96,7 +98,7 @@
                                                     <a href="#" class="btn btn-sm btn-danger delete-pelatihan"
                                                         data-nama="{{ $k->karyawan->nama }}"
                                                         data-id_karyawan="{{ $k->id_karyawan }}"
-                                                        data-url="{{ route('data-pelatihan.destroy', $k->id_karyawan) }}">
+                                                        data-url="{{ route('data-pelatihan.destroyByKaryawan', $k->id_karyawan) }}">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
 
@@ -245,11 +247,16 @@
         $(document).on('click', '.btn-history', function() {
             let karyawanId = $(this).data('karyawan');
             let nama = $(this).data('nama');
-            let data = $(this).data();
-            console.log("Isi data:", data);
-
 
             $('.modal-title').text('History Pelatihan (' + nama + ')');
+
+            // SIMPAN ID di modal
+            $('#InformationproModalalert').attr('data-karyawan', karyawanId);
+
+            refreshHistoryTable(karyawanId);
+        });
+
+        function refreshHistoryTable(karyawanId) {
             let tbody = $('#logTable tbody');
             tbody.empty();
 
@@ -262,24 +269,32 @@
                             let fileLink = item.file_pelatihan ?
                                 `<a href="/storage/assets/data_pelatihan/file_pelatihan/${encodeURIComponent(item.file_pelatihan)}" download>Unduh File</a>` :
                                 '-';
+
                             let row = `
-                              <tr>
-                                  <td>${index + 1}</td>
-                                  <td>${item.nama_pelatihan}</td>
-                                  <td>${item.tanggal_pelatihan}</td>
-                                  <td>${fileLink}</td>
-                              </tr>`;
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${item.nama_pelatihan}</td>
+                            <td>${item.tanggal_pelatihan}</td>
+                            <td>${fileLink}</td>
+                            <td>
+                                <button class="btn btn-sm btn-danger btn-delete-single"
+                                    data-id="${item.id}"
+                                    data-nama="${item.nama_pelatihan}">
+                                    <i class="fa fa-trash"></i> Hapus
+                                </button>
+                            </td>
+                        </tr>`;
                             tbody.append(row);
                         });
                     } else {
-                        tbody.append('<tr><td colspan="4">Belum ada pelatihan.</td></tr>');
+                        tbody.append('<tr><td colspan="5">Belum ada pelatihan.</td></tr>');
                     }
                 },
                 error: function() {
-                    tbody.append('<tr><td colspan="4">Gagal memuat data.</td></tr>');
+                    tbody.append('<tr><td colspan="5">Gagal memuat data.</td></tr>');
                 }
             });
-        });
+        }
     </script>
 
     {{-- Delete --}}
@@ -317,9 +332,60 @@
                                 });
                                 setTimeout(() => location.reload(), 1000);
                             },
-                            error: function(xhr) {
+                            error: function() {
                                 Lobibox.notify('error', {
                                     msg: "Terjadi kesalahan, coba lagi!"
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+    {{-- Delete satuan --}}
+    <script>
+        $(document).on('click', '.btn-delete-single', function(e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let nama = $(this).data('nama');
+
+            Lobibox.confirm({
+                msg: `Yakin ingin menghapus pelatihan "${nama}"?`,
+                buttons: {
+                    yes: {
+                        text: 'Ya',
+                        closeOnClick: true
+                    },
+                    no: {
+                        text: 'Batal',
+                        closeOnClick: true
+                    }
+                },
+                callback: function($this, type) {
+                    if (type === 'yes') {
+                        $.ajax({
+                            url: `/data-pelatihan/${id}`,
+                            type: 'POST',
+                            data: {
+                                _method: 'DELETE',
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                Lobibox.notify('success', {
+                                    msg: 'Data pelatihan berhasil dihapus!'
+                                });
+
+                                // ⏩ Ambil ulang ID dari modal
+                                let karyawanId = $('#InformationproModalalert').attr(
+                                    'data-karyawan');
+                                refreshHistoryTable(karyawanId);
+                            },
+                            error: function() {
+                                Lobibox.notify('error', {
+                                    msg: 'Terjadi kesalahan, coba lagi!'
                                 });
                             }
                         });

@@ -70,11 +70,24 @@ class PelatihanController extends Controller
 
     public function destroy($id)
     {
+        $pelatihan = PelatihanModel::findOrFail($id);
+
+        if ($pelatihan->file_pelatihan && Storage::disk('public')->exists('assets/data_pelatihan/file_pelatihan/' . $pelatihan->file_pelatihan)) {
+            Storage::disk('public')->delete('assets/data_pelatihan/file_pelatihan/' . $pelatihan->file_pelatihan);
+        }
+
+        $pelatihan->delete();
+
+        return response()->json(['message' => 'Pelatihan berhasil dihapus.']);
+    }
+
+    public function destroyByKaryawan($id)
+    {
         $pelatihans = PelatihanModel::where('id_karyawan', $id)->get();
 
         foreach ($pelatihans as $pelatihan) {
-            if ($pelatihan->file_pelatihan && Storage::exists($pelatihan->file_pelatihan)) {
-                Storage::delete($pelatihan->file_pelatihan);
+            if ($pelatihan->file_pelatihan && Storage::disk('public')->exists('assets/data_pelatihan/file_pelatihan/' . $pelatihan->file_pelatihan)) {
+                Storage::disk('public')->delete('assets/data_pelatihan/file_pelatihan/' . $pelatihan->file_pelatihan);
             }
             $pelatihan->delete();
         }
