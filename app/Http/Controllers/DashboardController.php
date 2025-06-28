@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\CutiModel;
+use App\Models\KaryawanModel;
+use App\Models\ResignModel;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,28 +15,41 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $karyawan = $user->karyawan;
 
-        if (!$karyawan) {
-            return redirect()->back()->with('error', 'Data karyawan tidak ditemukan.');
+        $totalKaryawan = null;
+        $totalResign   = null;
+        $totalPengguna = null;
+
+        // Kalau Super Admin, hitung statistik
+        if ($user->role === 'super admin') {
+            $totalKaryawan = KaryawanModel::count();
+            $totalResign   = ResignModel::count();
+            $totalPengguna = User::count();
         }
 
-        // Ambil absensi terakhir
-        $absensi = $karyawan->absensis()->latest()->first();
+        // Cari data karyawan user
+        $karyawan = $user->karyawan;
 
-        // Jadwal cuti berikutnya
-        $nextCuti = Carbon::parse($karyawan->tanggal_masuk)->addYear()->format('Y-m-d');
+        $absensi = null;
+        $nextCuti = null;
+        $cuti = null;
 
-        // Ambil pengajuan cuti terakhir oleh karyawan ini
-        $cuti = CutiModel::where('karyawan_id', $karyawan->id)->latest('created_at')->first();
+        if ($karyawan) {
+            $absensi = $karyawan->absensis()->latest()->first();
+            $nextCuti = Carbon::parse($karyawan->tanggal_masuk)->addYear()->format('Y-m-d');
+            $cuti = CutiModel::where('karyawan_id', $karyawan->id)->latest('created_at')->first();
+        }
 
         return view('pages.dashboard', [
-            'title'     => 'Dashboard',
-            'breadcome' => 'Dashboard',
-            'karyawan'  => $karyawan,
-            'absensi'   => $absensi,
-            'nextCuti'  => $nextCuti,
-            'cuti'      => $cuti,
+            'title'         => 'Dashboard',
+            'breadcome'     => 'Dashboard',
+            'totalKaryawan' => $totalKaryawan,
+            'totalResign'   => $totalResign,
+            'totalPengguna' => $totalPengguna,
+            'karyawan'      => $karyawan,
+            'absensi'       => $absensi,
+            'nextCuti'      => $nextCuti,
+            'cuti'          => $cuti,
         ]);
     }
 }
