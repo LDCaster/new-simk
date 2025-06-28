@@ -59,6 +59,22 @@
     <!-- modernizr JS
   ============================================ -->
     <script src="{{ asset('assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+
+    <style>
+        body {
+            background: url('{{ asset('assets/img/bg-login.jpg') }}') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .error-pagewrap {
+            background: rgba(0, 0, 0, 0.5);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -67,13 +83,15 @@
  <![endif]-->
     <div class="error-pagewrap">
         <div class="error-page-int">
-            <div class="text-center m-b-md custom-login">
-                <h3>Sistem Informasi Manajemen Karyawan</h3>
-                <p>Masukkan Email dan Password dengan benar!</p>
-            </div>
+
             <div class="content-error">
                 <div class="hpanel">
                     <div class="panel-body">
+                        <div class="text-center m-b-md custom-login" style="color: white !important;">
+                            <h3>Sistem Informasi Manajemen Karyawan</h3>
+                            <p>Masukkan Email dan Password dengan benar!</p>
+                        </div>
+
                         <form action="{{ route('login') }}" method="POST">
                             @csrf
                             <div class="form-group">

@@ -12,48 +12,72 @@ use App\Http\Controllers\ResignController;
 use App\Http\Controllers\TrainPlanController;
 use Illuminate\Support\Facades\Route;
 
+// Auth Routes
 Route::get('/', [AuthController::class, 'login']);
 Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
-Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
-Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
-Route::post('/karyawan/store', [KaryawanController::class, 'store'])->name('karyawan.store');
-Route::get('/karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
-Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
-Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
+// Karyawan
+Route::prefix('karyawan')->name('karyawan.')->group(function () {
+    Route::get('/', [KaryawanController::class, 'index'])->name('index');
+    Route::get('/create', [KaryawanController::class, 'create'])->name('create');
+    Route::post('/store', [KaryawanController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [KaryawanController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [KaryawanController::class, 'update'])->name('update');
+    Route::delete('/{id}', [KaryawanController::class, 'destroy'])->name('destroy');
+});
 
-Route::get('/kontrak-kerja', [KontrakKerjaController::class, 'index'])->name('kontrak-kerja.index');
-Route::put('/kontrak-kerja/update/{id}', [KontrakKerjaController::class, 'update'])->name('kontrak-kerja.update');
-Route::delete('/kontrak-kerja/{id}', [KontrakKerjaController::class, 'destroy'])->name('kontrak-kerja.destroy');
+// Kontrak Kerja
+Route::prefix('kontrak-kerja')->name('kontrak-kerja.')->group(function () {
+    Route::get('/', [KontrakKerjaController::class, 'index'])->name('index');
+    Route::put('/update/{id}', [KontrakKerjaController::class, 'update'])->name('update');
+    Route::delete('/{id}', [KontrakKerjaController::class, 'destroy'])->name('destroy');
+});
 
-Route::get('/data-resign', [ResignController::class, 'index'])->name('data-resign.index');
-Route::post('/data-resign', [ResignController::class, 'store'])->name('data-resign.store');
-Route::put('/data-resign/update/{id}', [ResignController::class, 'update'])->name('data-resign.update');
-Route::delete('/data-resign/{id}', [ResignController::class, 'destroy'])->name('data-resign.destroy');
+// Data Resign
+Route::prefix('data-resign')->name('data-resign.')->group(function () {
+    Route::get('/', [ResignController::class, 'index'])->name('index');
+    Route::post('/', [ResignController::class, 'store'])->name('store');
+    Route::put('/update/{id}', [ResignController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ResignController::class, 'destroy'])->name('destroy');
+});
 
-Route::get('/data-pelatihan', [PelatihanController::class, 'index'])->name('data-pelatihan.index');
-Route::post('/data-pelatihan', [PelatihanController::class, 'store'])->name('data-pelatihan.store');
+// Data Pelatihan
+Route::prefix('data-pelatihan')->name('data-pelatihan.')->group(function () {
+    Route::get('/', [PelatihanController::class, 'index'])->name('index');
+    Route::post('/', [PelatihanController::class, 'store'])->name('store');
+    Route::delete('/{id}', [PelatihanController::class, 'destroy'])->name('destroy');
+});
 Route::get('/pelatihan/history/{karyawan_id}', [PelatihanController::class, 'getHistoryPelatihan'])->name('pelatihan.history');
-Route::delete('/data-pelatihan/{id}', [PelatihanController::class, 'destroy'])->name('data-pelatihan.destroy');
 
-Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
-Route::post('/absensi/bulk-update', [AbsensiController::class, 'bulkUpdate'])->name('absensi.bulk-update');
+// Absensi
+Route::prefix('absensi')->name('absensi.')->group(function () {
+    Route::get('/', [AbsensiController::class, 'index'])->name('index');
+    Route::post('/bulk-update', [AbsensiController::class, 'bulkUpdate'])->name('bulk-update');
+});
 
-Route::get('/cuti', [CutiController::class, 'index'])->name('cuti.index');
-Route::get('/cuti/create', [CutiController::class, 'create'])->name('cuti.create');
-Route::post('/cuti/store', [CutiController::class, 'store'])->name('cuti.store');
-Route::post('/cuti/{id}/status', [CutiController::class, 'updateStatus'])->name('cuti.updateStatus');
-Route::delete('cuti/{id}', [CutiController::class, 'destroy'])->name('cuti.destroy');
+// Cuti
+Route::prefix('cuti')->name('cuti.')->group(function () {
+    Route::get('/', [CutiController::class, 'index'])->name('index');
+    Route::get('/create', [CutiController::class, 'create'])->name('create');
+    Route::post('/store', [CutiController::class, 'store'])->name('store');
+    Route::post('/{id}/status', [CutiController::class, 'updateStatus'])->name('updateStatus');
+    Route::delete('/{id}', [CutiController::class, 'destroy'])->name('destroy');
+});
 
-Route::get('training-plans', [TrainPlanController::class, 'index'])->name('training-plans.index');
-Route::get('training-plans/create', [TrainPlanController::class, 'create'])->name('training-plans.create');
-Route::post('training-plans/store', [TrainPlanController::class, 'store'])->name('training-plans.store');
-Route::get('/training-plans/{id}/edit', [TrainPlanController::class, 'edit'])->name('training-plans.edit');
-Route::put('/training-plans/{id}', [TrainPlanController::class, 'update'])->name('training-plans.update');
-Route::delete('/training-plans/{id}', [TrainPlanController::class, 'destroy'])->name('training-plans.destroy');
+// Training Plans
+Route::prefix('training-plans')->name('training-plans.')->group(function () {
+    Route::get('/', [TrainPlanController::class, 'index'])->name('index');
+    Route::get('/create', [TrainPlanController::class, 'create'])->name('create');
+    Route::post('/store', [TrainPlanController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [TrainPlanController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [TrainPlanController::class, 'update'])->name('update');
+    Route::delete('/{id}', [TrainPlanController::class, 'destroy'])->name('destroy');
+});
 
-Route::get('laporan-statisik', [LaporanStatistikController::class, 'index'])->name('laporan-statistik.index');
+// Laporan Statistik
+Route::get('/laporan-statisik', [LaporanStatistikController::class, 'index'])->name('laporan-statistik.index');

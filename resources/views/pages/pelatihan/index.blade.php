@@ -38,14 +38,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{-- @foreach ($historypelatihan as $index => $log)
-                                                        <tr>
-                                                            <td>{{ $index + 1 }}</td>
-                                                            <td>{{ $log->karyawan->nama }}</td>
-                                                            <td>{{ $log->tanggal_keluar }}</td>
-                                                            <td>{{ $log->keterangan_keluar }}</td>
-                                                        </tr>
-                                                    @endforeach --}}
+
                                                 </tbody>
                                             </table>
 
@@ -213,6 +206,40 @@
     @endif
 
 
+
+    {{-- CREATE --}}
+    <script>
+        $("#createPelatihanForm").submit(function(e) {
+            e.preventDefault();
+
+            let form = $(this)[0];
+            let formData = new FormData(form);
+
+            $.ajax({
+                url: "{{ route('data-pelatihan.store') }}",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    $("#createPelatihanModal").modal("hide");
+
+                    Lobibox.notify('success', {
+                        msg: response.status // Pesan sukses dari controller
+                    });
+
+                    setTimeout(() => location.reload(), 1000);
+                },
+                error: function(xhr) {
+                    Lobibox.notify('error', {
+                        msg: "Terjadi kesalahan, coba lagi!"
+                    });
+                }
+            });
+        });
+    </script>
+    {{-- END CREATE --}}
+
     {{-- HISTORY  --}}
     <script>
         $(document).on('click', '.btn-history', function() {
@@ -254,40 +281,6 @@
             });
         });
     </script>
-
-    {{-- CREATE --}}
-    <script>
-        $("#createPelatihanForm").submit(function(e) {
-            e.preventDefault();
-
-            let form = $(this)[0];
-            let formData = new FormData(form);
-
-            $.ajax({
-                url: "{{ route('data-pelatihan.store') }}",
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    $("#createPelatihanModal").modal("hide");
-
-                    Lobibox.notify('success', {
-                        msg: response.status // Pesan sukses dari controller
-                    });
-
-                    setTimeout(() => location.reload(), 1000);
-                },
-                error: function(xhr) {
-                    Lobibox.notify('error', {
-                        msg: "Terjadi kesalahan, coba lagi!"
-                    });
-                }
-            });
-        });
-    </script>
-    {{-- END CREATE --}}
-
 
     {{-- Delete --}}
     <script>

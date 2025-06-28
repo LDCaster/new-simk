@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_kontrak_kerja')->nullable();
             $table->unsignedBigInteger('id_karyawan');
-            $table->string('jenis_kontrak');
-            $table->string('status_kontrak_lanjutan');
+            $table->string('jenis_kontrak')->nullable();
+            $table->string('status_kontrak_lanjutan')->nullable();
             $table->date('tanggal_awal_kontrak_lanjutan')->nullable();
             $table->date('tanggal_akhir_kontrak_lanjutan')->nullable();
             $table->string('aksi'); // update atau delete
