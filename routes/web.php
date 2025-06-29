@@ -10,6 +10,7 @@ use App\Http\Controllers\LaporanStatistikController;
 use App\Http\Controllers\PelatihanController;
 use App\Http\Controllers\ResignController;
 use App\Http\Controllers\TrainPlanController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 // Auth Routes
@@ -82,6 +83,12 @@ Route::prefix('training-plans')->name('training-plans.')->group(function () {
     Route::get('/{id}/edit', [TrainPlanController::class, 'edit'])->name('edit');
     Route::put('/{id}', [TrainPlanController::class, 'update'])->name('update');
     Route::delete('/{id}', [TrainPlanController::class, 'destroy'])->name('destroy');
+});
+
+Route::prefix('users')->name('users.')->group(function () {
+    Route::get('/', [UsersController::class, 'index'])->name('index');
+    Route::get('/{id}/edit', [UsersController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [UsersController::class, 'update'])->name('update');
 });
 
 // Laporan Statistik

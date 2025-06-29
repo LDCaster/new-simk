@@ -32,6 +32,8 @@
                                             class="mini-sub-pro">Data Resign</span></a></li>
                                 <li><a title="Data Pelatihan" href="{{ route('data-pelatihan.index') }}"><span
                                             class="mini-sub-pro">Data Pelatihan</span></a></li>
+                                <li><a title="Data Users" href="{{ route('users.index') }}"><span
+                                            class="mini-sub-pro">Data Users</span></a></li>
                             </ul>
                         </li>
                     @endif

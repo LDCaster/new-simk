@@ -13,7 +13,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
-                            <div class="header-top-menu tabl-d-n">
+                            {{-- <div class="header-top-menu tabl-d-n">
                                 <ul class="nav navbar-nav mai-top-nav">
                                     <li class="nav-item"><a href="#" class="nav-link">Home</a>
                                     </li>
@@ -35,12 +35,12 @@
                                     <li class="nav-item"><a href="#" class="nav-link">Support</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                             <div class="header-right-info">
                                 <ul class="nav navbar-nav mai-top-nav header-right-menu">
-                                    <li class="nav-item dropdown">
+                                    {{-- <li class="nav-item dropdown">
                                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                             class="nav-link dropdown-toggle"><i
                                                 class="educate-icon educate-message edu-chat-pro"
@@ -111,8 +111,8 @@
                                                 <a href="#">View All Messages</a>
                                             </div>
                                         </div>
-                                    </li>
-                                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button"
+                                    </li> --}}
+                                    {{-- <li class="nav-item"><a href="#" data-toggle="dropdown" role="button"
                                             aria-expanded="false" class="nav-link dropdown-toggle"><i
                                                 class="educate-icon educate-bell" aria-hidden="true"></i><span
                                                 class="indicator-nt"></span></a>
@@ -181,10 +181,10 @@
                                                 <a href="#">View All Notification</a>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item">
-                                        <a href="#" data-toggle="dropdown" role="button"
-                                            aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                            class="nav-link dropdown-toggle">
                                             <img src="{{ asset('assets/img/product/pro4.jpg') }}" alt="" />
                                             <span class="admin-name">{{ Auth::user()->karyawan->nama }}</span>
                                             <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
@@ -202,10 +202,10 @@
                                                     </span>
                                                 </a>
                                             </li>
-                                            <li><a href="#"><span
+                                            {{-- <li><a href="#"><span
                                                         class="edu-icon edu-user-rounded author-log-ic"></span>My
                                                     Profile</a>
-                                            </li>
+                                            </li> --}}
                                             <li>
                                                 <form action="{{ route('logout') }}" method="POST"
                                                     style="display: none;" id="logout-form">
@@ -218,7 +218,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown"
+                                    {{-- <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown"
                                             role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i
                                                 class="educate-icon educate-menu"></i></a>
 
@@ -795,7 +795,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </div>
